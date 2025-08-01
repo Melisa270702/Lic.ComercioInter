@@ -1,0 +1,52 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f8ff;
+  color: #000;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #004080;
+}
+
+.malla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.materia {
+  border: 2px solid #004080;
+  border-radius: 10px;
+  padding: 15px;
+  background-color: #ffffff;
+  transition: background-color 0.3s;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.materia.aprobada {
+  background-color: #cce5ff;
+  border-color: #3399ff;
+}
+
+.materia h3 {
+  margin: 0 0 10px 0;
+  color: #004080;
+}
+
+.materia button {
+  padding: 8px 12px;
+  background-color: #004080;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.materia button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
