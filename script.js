@@ -74,4 +74,3 @@ function actualizarBotones() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", crearMalla);
