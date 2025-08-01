@@ -1,100 +1,90 @@
-// === script.js ===
+// Lista completa de materias con sus correlatividades
+const materias = [
+  { id: 'lectura', nombre: 'Lectura y escritura académica', requisitos: [] },
+  { id: 'textos', nombre: 'Textos de Economía y Administración', requisitos: [] },
 
-const materias = {
-  "Lectura y escritura académica": ["Macroeconomía"],
-  "Textos de Economía y Administración": ["Macroeconomía"],
-  "Matemáticas para economía y administración": ["Introducción a la Economía"],
-  "Macroeconomía": ["Estructura Económica Argentina y Mundial"],
-  "Microeconomía": ["Introducción al Comercio Internacional"],
+  { id: 'matematica_intro', nombre: 'Matemáticas para economía y administración', requisitos: [] },
+  { id: 'macro', nombre: 'Macroeconomía', requisitos: ['lectura', 'textos'] },
+  { id: 'micro', nombre: 'Microeconomía', requisitos: ['lectura', 'textos'] },
 
-  "Introducción a la Economía": ["Estadística básica para Economía y Administración"],
-  "Estructura Económica Argentina y Mundial": ["Álgebra"],
-  "Introducción al Comercio Internacional": ["Análisis Matemático aplicado a la Economía"],
+  { id: 'intro_economia', nombre: 'Introducción a la Economía', requisitos: ['matematica_intro'] },
+  { id: 'estructura', nombre: 'Estructura Económica Argentina y Mundial', requisitos: ['macro'] },
+  { id: 'intro_comercio', nombre: 'Introducción al Comercio Internacional', requisitos: ['micro'] },
 
-  "Estadística básica para Economía y Administración": ["Historia Argentina"],
-  "Álgebra": ["Historia Social General"],
-  "Análisis Matemático aplicado a la Economía": ["Introducción al Pensamiento Social"],
+  { id: 'estadistica', nombre: 'Estadística básica para Economía y Administración', requisitos: ['intro_economia'] },
+  { id: 'algebra', nombre: 'Álgebra', requisitos: ['estructura'] },
+  { id: 'analisis_mate', nombre: 'Análisis Matemático aplicado a la Economía', requisitos: ['intro_comercio'] },
 
-  "Historia Argentina": ["Historia del Pensamiento Económico"],
-  "Historia Social General": ["Integración Económica"],
-  "Introducción al Pensamiento Social": ["Relaciones Económicas Internacionales"],
+  { id: 'historia_arg', nombre: 'Historia Argentina', requisitos: ['estadistica'] },
+  { id: 'historia_social', nombre: 'Historia Social General', requisitos: ['algebra'] },
+  { id: 'pensamiento_social', nombre: 'Introducción al Pensamiento Social', requisitos: ['analisis_mate'] },
 
-  "Historia del Pensamiento Económico": ["Teoría de Comercio Internacional"],
-  "Economía Laboral Electiva": ["Dinero, Créditos y Bancos"],
-  "Ingles I": ["Ingles Comercial I"],
+  { id: 'pensamiento_economico', nombre: 'Historia del Pensamiento Económico', requisitos: ['historia_arg'] },
+  { id: 'integracion_economica', nombre: 'Integración Económica', requisitos: ['historia_social'] },
+  { id: 'relaciones_eco', nombre: 'Relaciones Económicas Internacionales', requisitos: ['pensamiento_social'] },
 
-  "Integración Económica": ["Costos y Precios de Importación y Exportación"],
-  "Relaciones Económicas Internacionales": ["Calificación Arancelaria y Valoración Aduanera"],
+  { id: 'teoria_comercio', nombre: 'Teoría de Comercio Internacional', requisitos: ['pensamiento_economico'] },
+  { id: 'economia_laboral', nombre: 'Economía Laboral Electiva', requisitos: [] },
+  { id: 'ingles1', nombre: 'Inglés I', requisitos: [] },
 
-  "Teoría de Comercio Internacional": ["Operaria y Practica Aduanera del Comercio Internacional"],
-  "Costos y Precios de Importación y Exportación": ["Lógica Integral del Comercio Internacional"],
-  "Calificación Arancelaria y Valoración Aduanera": ["Comercialización y Marketing Internacional"],
+  { id: 'informatica', nombre: 'Informática', requisitos: [] },
+  { id: 'costos_precios', nombre: 'Costos y Precios de Importación y Exportación', requisitos: ['integracion_economica'] },
+  { id: 'valoracion', nombre: 'Calificación Arancelaria y Valoración Aduanera', requisitos: ['relaciones_eco'] },
 
-  "Operaria y Practica Aduanera del Comercio Internacional": ["Instrumentos Jurídicos del Comercio Internacional"],
-  "Lógica Integral del Comercio Internacional": ["Medios de Pagos Internacionales, Financieros y Normativas Argentino-Mundial"],
-  "Comercialización y Marketing Internacional": ["Comercio y Negociaciones Internacionales."],
+  { id: 'operaria', nombre: 'Operaria y Práctica Aduanera del Comercio Internacional', requisitos: ['teoria_comercio'] },
+  { id: 'logica', nombre: 'Lógica Integral del Comercio Internacional', requisitos: ['costos_precios'] },
+  { id: 'marketing', nombre: 'Comercialización y Marketing Internacional', requisitos: ['valoracion'] },
 
-  "Instrumentos Jurídicos del Comercio Internacional": ["Seminario de practica integral en Comercio Internacional"],
-  "Medios de Pagos Internacionales, Financieros y Normativas Argentino-Mundial": ["Seminario de practica integral en Comercio Internacional"],
-  "Comercio y Negociaciones Internacionales.": ["Seminario de practica integral en Comercio Internacional"],
+  { id: 'juridicos', nombre: 'Instrumentos Jurídicos del Comercio Internacional', requisitos: ['operaria'] },
+  { id: 'medios_pago', nombre: 'Medios de Pagos Internacionales, Financieros y Normativas Argentino-Mundial', requisitos: ['logica'] },
+  { id: 'negociaciones', nombre: 'Comercio y Negociaciones Internacionales', requisitos: ['marketing'] },
 
-  "Ingles Comercial I": ["Ingles Comercial II"],
-  "Ingles Comercial II": ["Ingles Comercial Conversación"],
-  "Ingles Comercial Conversación": ["Tesis Licenciatura Comercio Internacional"],
-};
+  { id: 'seminario', nombre: 'Seminario de práctica integral en Comercio Internacional', requisitos: ['juridicos', 'medios_pago', 'negociaciones'] },
+  { id: 'dinero_credito', nombre: 'Dinero, créditos y bancos Electivo', requisitos: ['economia_laboral'] },
+  { id: 'ingles_com1', nombre: 'Inglés Comercial I', requisitos: ['ingles1'] },
 
-const aprobadas = new Set();
+  { id: 'ingles_com2', nombre: 'Inglés Comercial II', requisitos: ['ingles_com1'] },
+  { id: 'ingles_conv', nombre: 'Inglés Comercial Conversación', requisitos: ['ingles_com2'] },
+  { id: 'tesis', nombre: 'Tesis Licenciatura Comercio Internacional', requisitos: ['ingles_conv'] },
+];
 
-function crearMalla() {
-  const contenedor = document.getElementById("malla");
-  Object.keys(materias).forEach((nombre) => {
-    const div = document.createElement("div");
-    div.className = "materia";
-    div.id = nombre;
+const mallaContainer = document.getElementById('malla-container');
 
-    const titulo = document.createElement("h3");
-    titulo.textContent = nombre;
+function crearMateria(materia) {
+  const div = document.createElement('div');
+  div.className = 'materia';
+  div.id = materia.id;
 
-    const boton = document.createElement("button");
-    boton.textContent = "Aprobar";
-    boton.onclick = () => aprobar(nombre);
-    boton.disabled = true;
+  const titulo = document.createElement('h3');
+  titulo.textContent = materia.nombre;
 
-    div.appendChild(titulo);
-    div.appendChild(boton);
-    contenedor.appendChild(div);
+  const boton = document.createElement('button');
+  boton.textContent = 'Aprobar';
+  boton.disabled = materia.requisitos.length > 0;
+  boton.onclick = () => aprobarMateria(materia.id);
+
+  div.appendChild(titulo);
+  div.appendChild(boton);
+  mallaContainer.appendChild(div);
+}
+
+function aprobarMateria(id) {
+  const div = document.getElementById(id);
+  div.classList.add('aprobada');
+  const boton = div.querySelector('button');
+  boton.disabled = true;
+
+  materias.forEach(m => {
+    if (m.requisitos.includes(id)) {
+      const todosAprobados = m.requisitos.every(req => {
+        return document.getElementById(req).classList.contains('aprobada');
+      });
+      if (todosAprobados) {
+        const botonHabilitar = document.getElementById(m.id).querySelector('button');
+        botonHabilitar.disabled = false;
+      }
+    }
   });
-  desbloquearIniciales();
 }
 
-function desbloquearIniciales() {
-  const iniciales = [
-    "Lectura y escritura académica",
-    "Textos de Economía y Administración",
-    "Matemáticas para economía y administración",
-    "Microeconomía",
-    "Informática",
-    "Economía Laboral Electiva",
-    "Ingles I",
-    "Seminario de practica integral en Comercio Internacional.",
-    "Dinero, créditos y bancos Electivo"
-  ];
-  iniciales.forEach(nombre => document.querySelector(`#${CSS.escape(nombre)} button`).disabled = false);
-}
-
-function aprobar(nombre) {
-  if (aprobadas.has(nombre)) return;
-  aprobadas.add(nombre);
-
-  const div = document.getElementById(nombre);
-  div.classList.add("aprobada");
-  div.querySelector("button").disabled = true;
-
-  for (const desbloqueada of materias[nombre] || []) {
-    const boton = document.querySelector(`#${CSS.escape(desbloqueada)} button`);
-    if (boton) boton.disabled = false;
-  }
-}
-
-window.onload = crearMalla;
-
+materias.forEach(crearMateria);
