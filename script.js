@@ -1,3 +1,5 @@
+// === script.js ===
+
 const materias = {
   "Lectura y escritura académica": ["Macroeconomía"],
   "Textos de Economía y Administración": ["Macroeconomía"],
